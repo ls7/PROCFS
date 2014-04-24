@@ -3,18 +3,21 @@
 main()
 {
    char ch;
-   FILE *fp;
-   fp = fopen("/proc/osproject","r"); // read mode
-    if( fp == NULL )
+   FILE *filePtr;
+   filePtr = fopen("/proc/my_proc_file","r");
+    if( filePtr == NULL )
    {
-      perror("Error while opening the file.\n");
-      exit(EXIT_FAILURE);
+      printf("Error while opening the file.\n");
+
    }
-   
- printf("The contents of file are :- \n");
- while( ( ch = fgetc(fp) ) != EOF )//Until end of file, the characters are fetched
- printf("%c",ch);
- fclose(fp);// File closure
- printf("\n");
+    else
+   {   
+    
+     printf("Received message is :- \n");
+     while( ( ch = fgetc(filePtr) ) != EOF )
+     printf("%c",ch);
+     fclose(filePtr);
+     printf("\n");
+   }
  return 0;
 }

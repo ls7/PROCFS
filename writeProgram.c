@@ -1,16 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
  int main(void)
    {
-      FILE *fp;
-      char input[1024];
-      printf("Enter the data to be written ");
-      gets(input); 
-      fp = fopen("/proc/osproject", "w"); // The proc file open is performed in write mode
-      if (fp == NULL) {
-      printf("I couldn't open/proc/osproject for writing.\n");
+
+      FILE *filePtr;
+      char msg[1024];
+      int msgLen; 
+      printf("Enter message to be sent ");
+      gets(msg); 
+      filePtr = fopen("/proc/my_proc_file", "w");
+      if (filePtr == NULL) {
+      printf("I couldn't open/proc/my_proc_file for writing.\n");
       exit(0);
       }
-      fprintf(fp, "%s", input); // The input data is written into the proc file
+      msgLen = strlen(msg);
+
+      if(msgLen>1024)
+      printf("You have exceeded the buffer size\n");
+	
+      fprintf(filePtr, "%s", msg); 
       return 0;
    }
